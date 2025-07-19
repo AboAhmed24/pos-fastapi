@@ -60,8 +60,4 @@ app.include_router(router, prefix="/pos-printers")
 
 
 if __name__ == "__main__":
-    try:
-        uvicorn.run(app, host="0.0.0.0", port=5000)
-    except Exception as e:
-        print("Error starting server:", e)
-    input("Press Enter to exit...")
+    uvicorn.run("app.main:app", host="0.0.0.0", port=5000)
