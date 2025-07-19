@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException, Header
-from escpos.printer import Network
+from escpos.printer import Network, Dummy
 import tempfile
 
 
