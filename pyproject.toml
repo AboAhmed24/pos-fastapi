@@ -8,7 +8,7 @@ authors = [
 dependencies = [
     "python-escpos[all]",
     "fastapi[standard]",
-    "pyinstaller"
+    "pyinstaller",
 ]
 requires-python = ">=3.10"
 
