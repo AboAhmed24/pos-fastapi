@@ -2,6 +2,7 @@ from fastapi import FastAPI, APIRouter, File, UploadFile, HTTPException, Header
 from escpos.printer import Network
 from app.schemas import UploadPng
 import tempfile
+import uvicorn
 
 app = FastAPI()
 router = APIRouter()
@@ -48,3 +49,12 @@ async def upload_png(
 
 
 app.include_router(router, prefix="/pos-printers")
+
+
+
+if __name__ == "__main__":
+    try:
+        uvicorn.run("app.main:app", host="0.0.0.0", port=5000, reload=False)
+    except Exception as e:
+        print("Error starting server:", e)
+    input("Press Enter to exit...")
