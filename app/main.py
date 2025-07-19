@@ -1,17 +1,18 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException, Header
-from escpos.printer import Network, Dummy
+from fastapi import FastAPI, APIRouter, File, UploadFile, HTTPException, Header
+from escpos.printer import Network
+from app.schemas import UploadPngResponse
 import tempfile
 
-
 app = FastAPI()
+router = APIRouter()
 
 
-@app.get("/")
+@router.get("/")
 def read_root():
     return {"message": "Hello, FastAPI project is set up."}
 
 
-@app.post("/upload")
+@router.post("/upload", response_model=UploadPngResponse)
 async def upload_png(
     target_printer_ip: str = Header(...),
     file: UploadFile = File(...),
@@ -44,3 +45,6 @@ async def upload_png(
         "printed": printed,
         **({"error": error} if not printed else {}),
     }
+
+
+app.include_router(router, prefix="/pos-printers")
