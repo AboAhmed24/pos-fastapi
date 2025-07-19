@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.env/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+*.spec
+
+# PyInstaller
+*.exe
+*.dll
+*.so
+*.dylib
+
+# VSCode
+.vscode/

@@ -1,0 +1,17 @@
+[project]
+name = "pos-fastapi"
+version = "0.1.0"
+description = "A FastAPI project with python-escpos, uv, and pyinstaller"
+authors = [
+    { name = "leader" }
+]
+dependencies = [
+    "python-escpos[all]",
+    "fastapi[standard]",
+    "pyinstaller"
+]
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
