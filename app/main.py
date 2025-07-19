@@ -16,7 +16,7 @@ def read_root():
 async def upload_png(
     target_printer_ip: str = Header(...),
     file: UploadFile = File(...),
-):
+) -> UploadPngResponse:
     if not target_printer_ip:
         raise HTTPException(status_code=400, detail="Target-Printer-IP header missing.")
     if file.content_type != "image/png":
