@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException, Header
-from escpos.printer import Network
+from escpos.printer import Network, Dummy
 import tempfile
 
 
@@ -13,7 +13,8 @@ def read_root():
 
 @app.post("/upload")
 async def upload_png(
-    target_printer_ip: str = Header(...), file: UploadFile = File(...)
+    target_printer_ip: str = Header(...),
+    file: UploadFile = File(...),
 ):
     if not target_printer_ip:
         raise HTTPException(status_code=400, detail="Target-Printer-IP header missing.")
@@ -25,11 +26,12 @@ async def upload_png(
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp:
         tmp.write(content)
         tmp_path = tmp.name
+
     # Print using ESC/POS
     try:
         printer = Network(target_printer_ip)
         printer.image(tmp_path)
-        printer.cut(feed=False, mode="PART")
+        printer.cut()
         printed = True
     except Exception as e:
         printed = False
