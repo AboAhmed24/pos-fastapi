@@ -1,15 +1,17 @@
 from fastapi import FastAPI, APIRouter, File, UploadFile, HTTPException, Header
 from escpos.printer import Network
 import tempfile
-import uvicorn
 from pydantic import BaseModel
 from typing import Optional
+
+
 class UploadPng(BaseModel):
     filename: str
     size: int
     target_printer_ip: str
     printed: bool
     error: Optional[str] = None
+
 
 app = FastAPI()
 router = APIRouter()
@@ -56,8 +58,3 @@ async def upload_png(
 
 
 app.include_router(router, prefix="/pos-printers")
-
-
-
-# if __name__ == "__main__":
-#     uvicorn.run("app.main:app", host="0.0.0.0", port=5000)
