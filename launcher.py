@@ -1,6 +1,7 @@
 import uvicorn
 import os
 import sys
+import traceback
 
 if __name__ == "__main__":
     try:
@@ -20,8 +21,6 @@ if __name__ == "__main__":
             ssl_certfile=os.path.join(base_dir, "cert.pem"),
         )
     except Exception as e:
-        import traceback
-
         print("An error occurred:")
         traceback.print_exc()
         print("Current directory:", os.getcwd())
