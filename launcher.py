@@ -1,10 +1,15 @@
 import uvicorn
+import os
+import sys
 
 if __name__ == "__main__":
     try:
-        import os, sys
-        if getattr(sys, 'frozen', False):
-            base_dir = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.dirname(sys.executable)
+        if getattr(sys, "frozen", False):
+            base_dir = (
+                sys._MEIPASS
+                if hasattr(sys, "_MEIPASS")
+                else os.path.dirname(sys.executable)
+            )
         else:
             base_dir = os.path.dirname(os.path.abspath(__file__))
         uvicorn.run(
@@ -16,6 +21,7 @@ if __name__ == "__main__":
         )
     except Exception as e:
         import traceback
+
         print("An error occurred:")
         traceback.print_exc()
         print("Current directory:", os.getcwd())
