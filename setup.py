@@ -8,7 +8,8 @@ setup(
         "build_exe": {
             "build_exe": "build/Elnotah POS Printers Server",
             "packages": ["app", "uvicorn", "uvicorn.loops", "uvicorn.protocols", "uvicorn.middleware", "uvicorn.supervisors", "websockets", "anyio", "watchfiles"],
-            "includes": ["uvicorn.loops.auto"]
+            "includes": ["uvicorn.loops.auto"],
+            "include_files": ["key.pem", "cert.pem"]
         }
     }
 )
