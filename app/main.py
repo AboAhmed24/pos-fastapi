@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter, File, UploadFile, HTTPException, Header
+from fastapi.middleware.cors import CORSMiddleware
 from escpos.printer import Network
 import tempfile
 from pydantic import BaseModel
@@ -14,6 +15,20 @@ class UploadPng(BaseModel):
 
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost",
+        "http://127.0.0.1",
+        "https://hekaya.elnotah.com",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 router = APIRouter()
 
 
