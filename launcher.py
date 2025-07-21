@@ -19,7 +19,7 @@ if __name__ == "__main__":
             port=5000,
             ssl_keyfile=os.path.join(base_dir, "key.pem"),
             ssl_certfile=os.path.join(base_dir, "cert.pem"),
-            workers=4,
+            #workers=4,
         )
     except Exception as e:
         print("An error occurred:")
