@@ -7,8 +7,6 @@ from pydantic import BaseModel
 from typing import Optional
 from escpos.capabilities import Profile
 
-from fastapi import Body
-
 
 class UploadPng(BaseModel):
     filename: str
@@ -43,11 +41,12 @@ def get_printer(target_printer_ip: str = Header(...)):
             "pixel": 576  # 72mm printable area for Xprinter Q807K
         }
     }
-    printer = Network(target_printer_ip,profile=profile)
+    printer = Network(target_printer_ip, profile=profile)
     try:
         yield printer
     finally:
         printer.close()
+
 
 PrinterDependency = Annotated[Network, Depends(get_printer)]
 router = APIRouter()
@@ -60,10 +59,9 @@ def read_root():
 
 @router.post("/upload", response_model=UploadPng)
 async def upload_png(
-    #target_printer_ip: str = Header(...),
+    # target_printer_ip: str = Header(...),
     printer: PrinterDependency,
     file: UploadFile = File(...),
-   
 ) -> UploadPng:
     # if not target_printer_ip:
     #     raise HTTPException(status_code=400, detail="Target-Printer-IP header missing.")
@@ -82,7 +80,7 @@ async def upload_png(
         d.image(tmp_path)
         d.cut()
         printer._raw(d.output)
-      
+
         printed = True
     except Exception as e:
         printed = False
