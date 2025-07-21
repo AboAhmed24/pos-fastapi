@@ -5,7 +5,7 @@ from escpos.printer import Network, Dummy
 import tempfile
 from pydantic import BaseModel
 from typing import Optional
-
+from escpos.capabilities import Profile
 
 from fastapi import Body
 
@@ -37,14 +37,13 @@ app.add_middleware(
 
 
 def get_printer(target_printer_ip: str = Header(...)):
-    printer_profile = {
-        "media": {
-            "width": {
-                "pixel": 576  # 72mm printable area for Xprinter Q807K
-            }
+    profile = Profile()
+    profile.profile_data["media"] = {
+        "width": {
+            "pixel": 576  # 72mm printable area for Xprinter Q807K
         }
     }
-    printer = Network(target_printer_ip)
+    printer = Network(target_printer_ip,profile=profile)
     try:
         yield printer
     finally:
